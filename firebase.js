@@ -2,7 +2,6 @@
 
 
 import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,9 +19,9 @@ const firebaseConfig = {
   measurementId: "G-NT18LZV2L9"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
 

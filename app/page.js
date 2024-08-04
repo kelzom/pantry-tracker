@@ -5,7 +5,7 @@ import { firestore, storage } from '@/firebase'
 import { collection, doc, getDocs, query, setDoc, deleteDoc, getDoc, addDoc } from 'firebase/firestore'
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import DeleteIcon from '@mui/icons-material/Delete'
-import LoginPage from './loginpage'  
+import LoginPage from './loginpage'
 
 const style = {
   position: 'absolute',
@@ -13,7 +13,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: 'rgba(255, 255, 255, 0.8)', 
+  bgcolor: 'rgba(255, 255, 255, 0.8)',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
@@ -30,7 +30,7 @@ export default function Home() {
   const [itemName, setItemName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [image, setImage] = useState(null)
-  const [isLoggedIn, setIsLoggedIn] = useState(false) 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
 
@@ -76,11 +76,11 @@ export default function Home() {
   const handleLoginOpen = () => setLoginOpen(true)
   const handleLoginClose = () => {
     setLoginOpen(false)
-    setIsLoggedIn(true) 
+    setIsLoggedIn(true)
   }
   const handleImageModalOpen = () => setImageModalOpen(true)
   const handleImageModalClose = () => setImageModalOpen(false)
-  const handleLogout = () => setIsLoggedIn(false) 
+  const handleLogout = () => setIsLoggedIn(false)
 
   const startCamera = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true })
@@ -101,7 +101,7 @@ export default function Home() {
     await uploadBytes(storageRef, image)
     const url = await getDownloadURL(storageRef)
     console.log('Image URL:', url)
-   
+  
     await addDoc(collection(firestore, 'images'), { url })
     setImageModalOpen(false)
   }
@@ -117,14 +117,13 @@ export default function Home() {
       display="flex"
       position="relative"
       sx={{
-        backgroundColor: 'white', 
-        backgroundImage: isLoggedIn ? 'none' : 'url(/coverpic.jpg)', 
+        backgroundColor: 'white',
+        backgroundImage: isLoggedIn ? 'none' : 'url(/coverpic.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {/* Top Right Corner Buttons */}
       {!isLoggedIn && (
         <Box
           position="absolute"
@@ -179,8 +178,6 @@ export default function Home() {
                 From clutter to clarity, we will track it all!
               </Typography>
             </Box>
-
-            {/* Search Input Field */}
             <TextField
               label="Search Items"
               variant="outlined"
@@ -189,8 +186,6 @@ export default function Home() {
               onChange={(e) => setSearchQuery(e.target.value)}
               sx={{ marginBottom: 2 }}
             />
-
-            {/* Updated Inventory Box */}
             <Box
               width="100%"
               display="flex"
@@ -245,8 +240,6 @@ export default function Home() {
                 </Stack>
               </Box>
             </Box>
-
-            {/* Logout Button */}
             <Box 
               paddingTop={2} 
               alignSelf="center" 
@@ -275,20 +268,16 @@ export default function Home() {
               </Button>
             </Box>
           </Box>
-
-          {/* Image Section */}
           <Box width="70%" display="flex" justifyContent="center" alignItems="center">
             <Box
               component="img"
-              src="/pantry-labeled-jars-.jpg"  
+              src="/pantry-labeled-jars-.jpg"
               alt="Pantry"
               sx={{ width: '1000px', height: '800px', objectFit: 'cover', borderRadius: '8px' }}
             />
           </Box>
         </Box>
       )}
-
-      {/* Add Item Modal */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -327,8 +316,6 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-
-      {/* Capture Image Modal */}
       <Modal
         open={imageModalOpen}
         onClose={handleImageModalClose}
@@ -359,7 +346,6 @@ export default function Home() {
           </Box>
         </Box>
       </Modal>
-
       <LoginPage open={loginOpen} onClose={handleLoginClose} />
     </Box>
   )
